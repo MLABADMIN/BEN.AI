@@ -1,71 +1,68 @@
-<a href="https://chatbot.ai-sdk.dev/demo">
-  <img alt="Chatbot" src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Chatbot</h1>
-</a>
+# BEN.AI
 
-<p align="center">
-    Chatbot (formerly AI Chatbot) is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
-</p>
+BEN.AI is the AI guide, concierge and launch experience for the MLAB / MyLifeAsBen ecosystem.
 
-<p align="center">
-  <a href="https://chatbot.ai-sdk.dev/docs"><strong>Read Docs</strong></a> ·
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
-</p>
-<br/>
+MLAB brings together travel, learning, business, wealth and community under one practical, human-led platform.
 
-## Features
+**Tagline:** The Adventure Starts Here.
 
-- [Next.js](https://nextjs.org) App Router
-  - Advanced routing for seamless navigation and performance
-  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
-- [AI SDK](https://ai-sdk.dev/docs/introduction)
-  - Unified API for generating text, structured objects, and tool calls with LLMs
-  - Hooks for building dynamic chat and generative user interfaces
-  - Supports OpenAI, Anthropic, Google, xAI, and other model providers via AI Gateway
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
-- Data Persistence
-  - [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for saving chat history and user data
-  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
-- [Auth.js](https://authjs.dev)
-  - Simple and secure authentication
+**Mission:** Built from real experiences. Designed for real life.
 
-## Model Providers
+## Phase 1 goal
 
-This template uses the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) to access multiple AI models through a unified interface. Models are configured in `lib/ai/models.ts` with per-model provider routing. Included models: Mistral, Moonshot, DeepSeek, OpenAI, and xAI.
+The current build is focused on the July 1st launch version. This is not the full MLAB operating system yet.
 
-### AI Gateway Authentication
+The Phase 1 version should give visitors, future members, partners, affiliates and investors a polished way to understand:
 
-**For Vercel deployments**: Authentication is handled automatically via OIDC tokens.
+- What MLAB is
+- How membership works
+- Travel services
+- Relocation support
+- Citizenship guidance
+- Wealth Circles / Pardner Circles
+- Community support concepts
+- The BEN.AI roadmap
+- Practical life-admin support
 
-**For non-Vercel deployments**: You need to provide an AI Gateway API key by setting the `AI_GATEWAY_API_KEY` environment variable in your `.env.local` file.
+## BEN.AI role
 
-With the [AI SDK](https://ai-sdk.dev/docs/introduction), you can also switch to direct LLM providers like [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://ai-sdk.dev/providers/ai-sdk-providers) with just a few lines of code.
+BEN.AI is not a generic chatbot. BEN.AI acts as:
 
-## Deploy Your Own
+- Guide
+- Concierge
+- Navigator
+- Community connector
+- Life admin assistant
 
-You can deploy your own version of Chatbot to Vercel with one click:
+BEN.AI should help people explore travel, relocation, business, learning, wealth, citizenship, community and everyday admin with warmth, clarity and practical next steps.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/templates/next.js/chatbot)
+## Brand foundations
 
-## Running locally
+- MLAB = Travel + Learning + Business + Wealth + Community
+- BEN.AI = Guide + Concierge + Life Admin + Community Connector
+- Built from real experiences. Designed for real life.
+- The Adventure Starts Here.
+- Luxury black-and-gold visual direction
+- Real BEN.AI portrait direction, not a mascot
+- Community, citizenship, belonging, wealth circles and life admin are core parts of the story
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+## Tech stack
 
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
+This project is based on a Next.js chatbot application using the AI SDK.
 
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
+Useful scripts:
 
 ```bash
 pnpm install
-pnpm db:migrate # Setup database or apply latest database changes
 pnpm dev
+pnpm check
+pnpm build
 ```
 
-Your app template should now be running on [localhost:3000](http://localhost:3000).
+## Important build note
+
+The CI pipeline runs `pnpm check`. If a GitHub Actions build fails during the check stage, run `pnpm check` locally or use the formatter/linter output to fix the exact formatting or TypeScript issue before re-running the workflow.
+
+## Roadmap
+
+See [`docs/BENAI_ROADMAP.md`](docs/BENAI_ROADMAP.md) for the current launch-to-OS roadmap.
