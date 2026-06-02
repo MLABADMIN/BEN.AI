@@ -116,7 +116,8 @@ export default function SettingsPage() {
               <div className="rounded-3xl border border-yellow-500/20 bg-black p-5">
                 <h2 className="font-semibold text-xl">Page controls</h2>
                 <p className="mt-1 text-sm text-yellow-100/55">
-                  Keep this simple at the top level. No cluttered wall of buttons.
+                  Keep this simple at the top level. No cluttered wall of
+                  buttons.
                 </p>
                 <div className="mt-4 space-y-2">
                   {pageControls.map((item) => (
@@ -136,10 +137,11 @@ export default function SettingsPage() {
               <div className="rounded-3xl border border-yellow-500/20 bg-gradient-to-br from-yellow-500/15 to-black p-5">
                 <h2 className="font-semibold text-xl">Rewards wallet idea</h2>
                 <p className="mt-2 text-sm leading-6 text-yellow-100/65">
-                  A future coupon-book style wallet for MLAB points, booking-style
-                  credits, affiliate links, referral rewards, membership discounts,
-                  course rewards and special treats. Users can hide it, bring it
-                  back from settings, or keep it nearby when useful.
+                  A future coupon-book style wallet for MLAB points,
+                  booking-style credits, affiliate links, referral rewards,
+                  membership discounts, course rewards and special treats. Users
+                  can hide it, bring it back from settings, or keep it nearby
+                  when useful.
                 </p>
                 <Link
                   className="mt-4 inline-flex rounded-full border border-yellow-500/35 bg-black/50 px-4 py-2 font-medium text-sm text-yellow-50 transition-colors hover:bg-yellow-500/15"

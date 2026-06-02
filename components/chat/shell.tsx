@@ -187,8 +187,9 @@ export function ChatShell() {
             <AlertDialogDescription className="text-yellow-100/65">
               BEN.AI can use Vercel AI Gateway or a direct provider key such as
               OpenAI. The current deployment is asking for Gateway activation,
-              so chat needs the owner to connect billing/API access or switch the
-              route to a direct OpenAI key before visitors can use live replies.
+              so chat needs the owner to connect billing/API access or switch
+              the route to a direct OpenAI key before visitors can use live
+              replies.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

@@ -7,7 +7,8 @@ import type {
   LanguageModelV3Usage,
 } from "@ai-sdk/provider";
 
-const OPENAI_CHAT_COMPLETIONS_URL = "https://api.openai.com/v1/chat/completions";
+const OPENAI_CHAT_COMPLETIONS_URL =
+  "https://api.openai.com/v1/chat/completions";
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 
 type OpenAIChatMessage = {
@@ -119,7 +120,9 @@ function partToText(part: any) {
     }
     if (output.type === "content") {
       return output.value
-        .map((item: any) => (item.type === "text" ? item.text : "[tool content]"))
+        .map((item: any) =>
+          item.type === "text" ? item.text : "[tool content]"
+        )
         .join("\n");
     }
     return `[Tool result: ${output.type}]`;
@@ -137,7 +140,10 @@ function promptToOpenAIChatMessages(
         return { role: "system" as const, content: message.content };
       }
 
-      const content = message.content.map(partToText).filter(Boolean).join("\n");
+      const content = message.content
+        .map(partToText)
+        .filter(Boolean)
+        .join("\n");
 
       if (message.role === "assistant") {
         return { role: "assistant" as const, content };
@@ -148,7 +154,10 @@ function promptToOpenAIChatMessages(
     .filter((message) => message.content.trim().length > 0);
 }
 
-function buildRequestBody(options: LanguageModelV3CallOptions, stream: boolean) {
+function buildRequestBody(
+  options: LanguageModelV3CallOptions,
+  stream: boolean
+) {
   return {
     model: directOpenAIModelId(),
     messages: promptToOpenAIChatMessages(options.prompt),
@@ -244,7 +253,10 @@ export function createDirectOpenAIModel(): LanguageModelV3 {
 
       let buffer = "";
       let metadataSent = false;
-      let finishReason: LanguageModelV3FinishReason = { unified: "stop", raw: undefined };
+      let finishReason: LanguageModelV3FinishReason = {
+        unified: "stop",
+        raw: undefined,
+      };
       let usage: OpenAIUsage | undefined;
 
       const stream = new ReadableStream<LanguageModelV3StreamPart>({
@@ -283,7 +295,11 @@ export function createDirectOpenAIModel(): LanguageModelV3 {
 
                   const delta = chunk.choices?.[0]?.delta?.content;
                   if (delta) {
-                    controller.enqueue({ type: "text-delta", id: textId, delta });
+                    controller.enqueue({
+                      type: "text-delta",
+                      id: textId,
+                      delta,
+                    });
                   }
 
                   const chunkFinishReason = chunk.choices?.[0]?.finish_reason;
