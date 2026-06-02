@@ -1,6 +1,6 @@
 "use client";
 
-import { PanelLeftIcon } from "lucide-react";
+import { PanelLeftIcon, SettingsIcon } from "lucide-react";
 import Link from "next/link";
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
@@ -60,6 +60,17 @@ function PureChatHeader({
           </Button>
         ))}
       </nav>
+
+      <Button
+        asChild
+        className="h-8 rounded-full border border-yellow-500/20 px-3 text-yellow-50/80 text-xs hover:border-yellow-500/50 hover:bg-yellow-500/10 hover:text-yellow-100"
+        variant="ghost"
+      >
+        <Link href="/settings">
+          <SettingsIcon className="size-3.5" />
+          <span className="hidden sm:inline">Settings</span>
+        </Link>
+      </Button>
 
       {!isReadonly && (
         <div className="ml-1 hidden md:block">
