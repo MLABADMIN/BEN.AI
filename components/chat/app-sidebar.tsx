@@ -158,7 +158,9 @@ export function AppSidebar({ user }: { user: User | undefined }) {
             </SidebarMenuItem>
           </SidebarMenu>
           <div className="mt-3 px-2 group-data-[collapsible=icon]:hidden">
-            <p className="font-semibold text-sm text-yellow-50">BEN.AI / MLAB</p>
+            <p className="font-semibold text-sm text-yellow-50">
+              BEN.AI / MLAB
+            </p>
             <p className="mt-1 text-[11px] text-yellow-100/55">
               Launch guide now. My Life OS early-access previews below.
             </p>
@@ -186,7 +188,9 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   <details className="group mt-2 rounded-xl border border-yellow-500/20 bg-[#080808] p-2 open:bg-yellow-500/5">
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-lg px-2 py-2 text-yellow-50 text-xs">
                       <span className="flex min-w-0 flex-col">
-                        <span className="font-semibold">My Life OS preview</span>
+                        <span className="font-semibold">
+                          My Life OS preview
+                        </span>
                         <span className="text-[11px] text-yellow-100/50">
                           Demo modules for early access
                         </span>
@@ -235,7 +239,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                     <span className="flex flex-col">
                       <span className="font-semibold text-sm">Settings</span>
                       <span className="text-[11px] leading-4 text-yellow-100/55">
-                        Control widgets, page mode, rewards and early-access features.
+                        Control widgets, page mode, rewards and early-access
+                        features.
                       </span>
                     </span>
                   </SidebarMenuButton>
@@ -251,7 +256,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                         Join early access
                       </span>
                       <span className="mt-1 block text-[11px] leading-4 text-yellow-100/60">
-                        Register interest for BEN.AI, MLAB membership and future My Life OS features.
+                        Register interest for BEN.AI, MLAB membership and future
+                        My Life OS features.
                       </span>
                     </span>
                   </Link>
@@ -289,8 +295,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
             <AlertDialogTitle>Clear BEN.AI chat history?</AlertDialogTitle>
             <AlertDialogDescription>
               This clears the BEN.AI conversations saved to this workspace. It
-              will not change your MLAB account, early-access status, settings or
-              website data.
+              will not change your MLAB account, early-access status, settings
+              or website data.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

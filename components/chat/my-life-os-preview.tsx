@@ -69,7 +69,13 @@ const widgets: PreviewWidget[] = [
   },
 ];
 
-const secondaryLanes = ["Travel", "Learning", "Business", "Wealth", "Community"];
+const secondaryLanes = [
+  "Travel",
+  "Learning",
+  "Business",
+  "Wealth",
+  "Community",
+];
 
 export function MyLifeOSPreview() {
   const [states, setStates] = useState<Record<string, WidgetState>>(
@@ -106,8 +112,8 @@ export function MyLifeOSPreview() {
               My Life OS demo widgets
             </h2>
             <p className="mt-1 max-w-2xl text-[12px] leading-5 text-yellow-100/58 md:text-sm">
-              A clickable preview layer for the future workspace: minimise cards,
-              hide them, then restore them from the hidden tray.
+              A clickable preview layer for the future workspace: minimise
+              cards, hide them, then restore them from the hidden tray.
             </p>
           </div>
           <button
@@ -152,7 +158,10 @@ export function MyLifeOSPreview() {
                       aria-label={`Minimise ${widget.title}`}
                       className="rounded-full border border-yellow-500/15 p-1 text-yellow-100/65 hover:bg-yellow-500/10 hover:text-yellow-50"
                       onClick={() =>
-                        setWidgetState(widget.id, isMinimised ? "open" : "minimised")
+                        setWidgetState(
+                          widget.id,
+                          isMinimised ? "open" : "minimised"
+                        )
                       }
                       type="button"
                     >
@@ -224,7 +233,8 @@ export function MyLifeOSPreview() {
             </div>
           ) : (
             <p className="text-[11px] text-yellow-100/45">
-              Settings will control widgets, page mode, rewards, early access and hidden items.
+              Settings will control widgets, page mode, rewards, early access
+              and hidden items.
             </p>
           )}
         </div>

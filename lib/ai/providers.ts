@@ -1,7 +1,7 @@
 import { customProvider, gateway } from "ai";
 import { isTestEnvironment } from "../constants";
-import { titleModel } from "./models";
 import { createDirectOpenAIModel } from "./direct-openai-provider";
+import { titleModel } from "./models";
 
 export const myProvider = isTestEnvironment
   ? (() => {
