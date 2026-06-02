@@ -5,8 +5,14 @@ import Link from "next/link";
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
-import { VercelIcon } from "./icons";
 import { VisibilitySelector, type VisibilityType } from "./visibility-selector";
+
+const topNavItems = [
+  { label: "About Us", href: "https://www.mylifeasben.co.uk/about" },
+  { label: "Join", href: "https://www.mylifeasben.co.uk/join" },
+  { label: "Contact", href: "https://www.mylifeasben.co.uk/contact" },
+  { label: "Sign In", href: "/login" },
+];
 
 function PureChatHeader({
   chatId,
@@ -24,9 +30,9 @@ function PureChatHeader({
   }
 
   return (
-    <header className="sticky top-0 flex h-14 items-center gap-2 bg-sidebar px-3">
+    <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b border-yellow-500/15 bg-black/95 px-3 text-yellow-50 shadow-[0_10px_35px_rgba(0,0,0,0.28)] backdrop-blur">
       <Button
-        className="md:hidden"
+        className="text-yellow-100 hover:bg-yellow-500/10 hover:text-yellow-50 md:hidden"
         onClick={toggleSidebar}
         size="icon-sm"
         variant="ghost"
@@ -35,34 +41,34 @@ function PureChatHeader({
       </Button>
 
       <Link
-        className="flex size-8 items-center justify-center rounded-lg md:hidden"
-        href="https://vercel.com/templates/next.js/chatbot"
-        rel="noopener noreferrer"
-        target="_blank"
+        className="flex items-center gap-2 rounded-full border border-yellow-500/25 bg-yellow-500/10 px-3 py-1.5 font-semibold text-[11px] text-yellow-100 uppercase tracking-[0.22em] transition-colors hover:border-yellow-400/60 hover:bg-yellow-500/15"
+        href="/"
       >
-        <VercelIcon size={14} />
+        <span className="size-2 rounded-full bg-yellow-400 shadow-[0_0_16px_rgba(250,204,21,0.7)]" />
+        BEN.AI
       </Link>
 
-      {!isReadonly && (
-        <VisibilitySelector
-          chatId={chatId}
-          selectedVisibilityType={selectedVisibilityType}
-        />
-      )}
+      <nav className="ml-auto hidden items-center gap-1 md:flex">
+        {topNavItems.map((item) => (
+          <Button
+            asChild
+            className="h-8 rounded-full px-3 text-yellow-50/72 text-xs hover:bg-yellow-500/10 hover:text-yellow-100"
+            key={item.label}
+            variant="ghost"
+          >
+            <Link href={item.href}>{item.label}</Link>
+          </Button>
+        ))}
+      </nav>
 
-      <Button
-        asChild
-        className="hidden rounded-lg bg-foreground px-4 text-background hover:bg-foreground/90 md:ml-auto md:flex"
-      >
-        <Link
-          href="https://vercel.com/templates/next.js/chatbot"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <VercelIcon size={16} />
-          Deploy with Vercel
-        </Link>
-      </Button>
+      {!isReadonly && (
+        <div className="ml-1 hidden md:block">
+          <VisibilitySelector
+            chatId={chatId}
+            selectedVisibilityType={selectedVisibilityType}
+          />
+        </div>
+      )}
     </header>
   );
 }
