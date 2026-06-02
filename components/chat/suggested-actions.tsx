@@ -15,9 +15,9 @@ type SuggestedActionsProps = {
 
 const suggestedActions = [
   "Give me the 60-second tour of MLAB",
+  "Where should I go based on likely weather?",
   "How can MLAB help with travel or moving abroad?",
   "Explain Wealth Circles and community support",
-  "What is the BEN.AI roadmap?",
 ];
 
 function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
