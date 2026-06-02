@@ -71,10 +71,10 @@ export function ChatShell() {
 
   return (
     <>
-      <div className="flex h-dvh w-full flex-row overflow-hidden">
+      <div className="flex h-dvh w-full flex-row overflow-hidden bg-[#030303] text-yellow-50">
         <div
           className={cn(
-            "flex min-w-0 flex-col bg-sidebar transition-[width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+            "flex min-w-0 flex-col bg-black transition-[width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
             isArtifactVisible ? "w-[40%]" : "w-full"
           )}
         >
@@ -84,7 +84,9 @@ export function ChatShell() {
             selectedVisibilityType={visibilityType}
           />
 
-          <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden bg-background md:rounded-tl-[12px] md:border-t md:border-l md:border-border/40">
+          <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden border-yellow-500/20 bg-[radial-gradient(circle_at_15%_0%,rgba(234,179,8,0.14),transparent_32%),linear-gradient(180deg,#090909,#030303)] md:rounded-tl-[16px] md:border-t md:border-l">
+            <div className="pointer-events-none absolute top-6 right-8 size-24 rounded-full border border-yellow-500/10 shadow-[0_0_70px_rgba(234,179,8,0.14)]" />
+            <div className="pointer-events-none absolute right-16 bottom-28 h-px w-36 rotate-[-18deg] bg-gradient-to-r from-transparent via-yellow-500/25 to-transparent" />
             <Messages
               addToolApprovalResponse={addToolApprovalResponse}
               chatId={chatId}
@@ -107,7 +109,7 @@ export function ChatShell() {
               votes={votes}
             />
 
-            <div className="sticky bottom-0 z-1 mx-auto flex w-full max-w-4xl gap-2 border-t-0 bg-background px-2 pb-3 md:px-4 md:pb-4">
+            <div className="sticky bottom-0 z-1 mx-auto flex w-full max-w-4xl gap-2 border-t border-yellow-500/10 bg-gradient-to-t from-black via-black/95 to-transparent px-2 pt-5 pb-3 md:px-4 md:pb-4">
               {!isReadonly && (
                 <MultimodalInput
                   attachments={attachments}
