@@ -12,16 +12,7 @@ Phase 1 is not the full MLAB operating system. It is the front-door experience.
 
 ### Purpose
 
-Create a premium BEN.AI experience that can answer questions from:
-
-- Visitors
-- Potential members
-- Travel clients
-- Relocation clients
-- Investors
-- Partners
-- Affiliates
-- Community members
+Create a premium BEN.AI experience that can answer questions from visitors, potential members, travel clients, relocation clients, investors, partners, affiliates and community members.
 
 ### Must explain
 
@@ -30,7 +21,7 @@ Create a premium BEN.AI experience that can answer questions from:
 - Travel services
 - Relocation support
 - Citizenship guidance
-- Wealth Circles / Pardner Circles
+- Wealth Circles and Pardner Circles
 - Community fund concepts
 - Business directory and opportunity sharing
 - BEN.AI roadmap
@@ -38,13 +29,7 @@ Create a premium BEN.AI experience that can answer questions from:
 
 ### First-visit experience
 
-BEN.AI should introduce himself with:
-
-> Hi, I'm BEN.AI.
->
-> Built from real experiences. Designed for real life.
->
-> How can I help today?
+BEN.AI should introduce himself clearly, explain that he is built from real experiences and designed for real life, then invite the visitor to ask for help.
 
 BEN.AI should feel present and premium, but not dominate the homepage. The homepage remains focused on MLAB, with BEN.AI acting as the guide into the ecosystem.
 
@@ -52,11 +37,29 @@ BEN.AI should feel present and premium, but not dominate the homepage. The homep
 
 - Luxury black and gold
 - Premium, modern, calm and intelligent
-- Apple + OpenAI + Tesla quality direction
+- Apple, OpenAI and Tesla quality direction
 - Realistic BEN.AI portrait based on Ben
 - Not a mascot
 - Not a cartoon
 - Not just a logo
+
+### Phase 1 delivery checklist
+
+Core launch tasks:
+
+- Replace generic chatbot-template copy with BEN.AI and MLAB language.
+- Keep BEN.AI positioned as a guide and concierge, not the full future OS.
+- Make the suggested prompts route people into the MLAB ecosystem.
+- Make the system prompt safe, practical, warm and clear.
+- Document the roadmap so future ideas are preserved without overbuilding now.
+- Confirm that the build and check pipeline passes before launch.
+
+Nice-to-have launch tasks:
+
+- Add the final BEN.AI portrait once the approved asset is ready.
+- Refine the homepage layout around MLAB first and BEN.AI second.
+- Add a compact first-time intro that can later minimise into the lower-right assistant.
+- Add a simple visitor journey map for membership, travel, relocation, citizenship and community.
 
 ## Phase 2: Guided ecosystem
 
@@ -113,10 +116,6 @@ The founder's Jamaican citizenship journey is part of the MLAB identity story an
 
 ## Human escalation rule
 
-If BEN.AI does not know something, cannot access it, or the answer depends on a decision that has not been made, it should say so clearly.
-
-Recommended phrase:
-
-> This is something you'll need to discuss with Human Ben.
+If BEN.AI does not know something, cannot access it, or the answer depends on a decision that has not been made, it should say so clearly and recommend speaking to Human Ben.
 
 BEN.AI should not invent MLAB prices, policies, grant eligibility, legal guidance, financial promises or guarantees.
