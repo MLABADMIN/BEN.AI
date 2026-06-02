@@ -9,6 +9,8 @@
   const chatUrl = config.chatUrl || "https://ben-ai-beta.vercel.app";
   const title = config.title || "BEN.AI";
   const subtitle = config.subtitle || "The Adventure Starts Here";
+  const avatarUrl = config.avatarUrl || "";
+  const avatarAlt = config.avatarAlt || "BEN.AI";
 
   const root = document.createElement("div");
   root.id = "ben-ai-widget-root";
@@ -46,14 +48,25 @@
 
     .ben-ai-orb {
       display: grid;
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(250, 204, 21, 0.62);
       border-radius: 999px;
       background: linear-gradient(135deg, #facc15, #92400e 58%, #111827);
       color: #111827;
       font-weight: 800;
       letter-spacing: -0.05em;
+      box-shadow: 0 0 26px rgba(234, 179, 8, 0.24);
+    }
+
+    .ben-ai-avatar {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
     .ben-ai-launcher-copy {
@@ -182,8 +195,13 @@
   launcher.className = "ben-ai-launcher";
   launcher.type = "button";
   launcher.setAttribute("aria-label", "Open BEN.AI");
+
+  const orbMarkup = avatarUrl
+    ? `<span class="ben-ai-orb"><img class="ben-ai-avatar" src="${avatarUrl}" alt="${avatarAlt}" loading="lazy" decoding="async" /></span>`
+    : `<span class="ben-ai-orb">B</span>`;
+
   launcher.innerHTML = `
-    <span class="ben-ai-orb">B</span>
+    ${orbMarkup}
     <span class="ben-ai-launcher-copy">
       <span class="ben-ai-launcher-title">${title}</span>
       <span class="ben-ai-launcher-subtitle">${subtitle}</span>
