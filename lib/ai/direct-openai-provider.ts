@@ -2,7 +2,7 @@ import type {
   LanguageModelV3,
   LanguageModelV3CallOptions,
   LanguageModelV3Content,
-  LanguageModelV3Message,
+  LanguageModelV3FinishReason,
   LanguageModelV3StreamPart,
   LanguageModelV3Usage,
 } from "@ai-sdk/provider";
@@ -72,23 +72,29 @@ function toUsage(usage?: OpenAIUsage): LanguageModelV3Usage {
   };
 }
 
-function normaliseFinishReason(reason?: string | null) {
+function normaliseFinishReason(
+  reason?: string | null
+): LanguageModelV3FinishReason {
   if (reason === "length") {
-    return "length";
+    return { unified: "length", raw: reason };
   }
   if (reason === "content_filter") {
-    return "content-filter";
+    return { unified: "content-filter", raw: reason };
   }
   if (reason === "tool_calls" || reason === "function_call") {
-    return "tool-calls";
+    return { unified: "tool-calls", raw: reason };
   }
   if (reason === "error") {
-    return "error";
+    return { unified: "error", raw: reason };
   }
-  return "stop";
+  return { unified: "stop", raw: reason ?? undefined };
 }
 
-function partToText(part: LanguageModelV3Message["content"][number]) {
+function partToText(part: any) {
+  if (typeof part === "string") {
+    return part;
+  }
+
   if (part.type === "text" || part.type === "reasoning") {
     return part.text;
   }
@@ -113,7 +119,7 @@ function partToText(part: LanguageModelV3Message["content"][number]) {
     }
     if (output.type === "content") {
       return output.value
-        .map((item) => (item.type === "text" ? item.text : "[tool content]"))
+        .map((item: any) => (item.type === "text" ? item.text : "[tool content]"))
         .join("\n");
     }
     return `[Tool result: ${output.type}]`;
@@ -238,7 +244,7 @@ export function createDirectOpenAIModel(): LanguageModelV3 {
 
       let buffer = "";
       let metadataSent = false;
-      let finishReason: ReturnType<typeof normaliseFinishReason> = "stop";
+      let finishReason: LanguageModelV3FinishReason = { unified: "stop", raw: undefined };
       let usage: OpenAIUsage | undefined;
 
       const stream = new ReadableStream<LanguageModelV3StreamPart>({
