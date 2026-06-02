@@ -11,6 +11,7 @@ import {
   PenSquareIcon,
   SettingsIcon,
   SparklesIcon,
+  TicketPercentIcon,
   TrashIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -71,22 +72,22 @@ const previewWidgets = [
     icon: CalendarDaysIcon,
   },
   {
-    title: "Gift prompts",
+    title: "Gift cards",
     description:
-      "Planned gift-voucher suggestions connected to important dates, notes and reminders.",
+      "Planned gift-card and voucher links connected to important dates, rewards and reminders.",
     icon: GiftIcon,
+  },
+  {
+    title: "Rewards wallet",
+    description:
+      "A future coupon-book style place for points, credits, affiliate perks, referrals and member treats.",
+    icon: TicketPercentIcon,
   },
   {
     title: "Declutter nudge",
     description:
       "Optional future reminder to save, archive or clear stale open items. Never auto-deletes.",
     icon: SparklesIcon,
-  },
-  {
-    title: "Widget settings",
-    description:
-      "Choose which modules appear, what can remind you, and how calm the workspace feels.",
-    icon: SettingsIcon,
   },
 ];
 
@@ -108,6 +109,11 @@ export function AppSidebar({ user }: { user: User | undefined }) {
     });
 
     toast.success("All BEN.AI chats deleted");
+  };
+
+  const openSettings = () => {
+    setOpenMobile(false);
+    router.push("/settings");
   };
 
   const askAboutEarlyAccess = () => {
@@ -217,6 +223,22 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                       })}
                     </div>
                   </details>
+                </SidebarMenuItem>
+
+                <SidebarMenuItem className="group-data-[collapsible=icon]:hidden">
+                  <SidebarMenuButton
+                    className="mt-2 h-auto rounded-xl border border-yellow-500/20 bg-black/40 p-3 text-left text-yellow-50 transition-colors hover:border-yellow-500/35 hover:bg-yellow-500/10"
+                    onClick={openSettings}
+                    tooltip="Open settings"
+                  >
+                    <SettingsIcon className="size-4 text-yellow-400" />
+                    <span className="flex flex-col">
+                      <span className="font-semibold text-sm">Settings</span>
+                      <span className="text-[11px] leading-4 text-yellow-100/55">
+                        Control widgets, page mode, rewards and early-access features.
+                      </span>
+                    </span>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem className="group-data-[collapsible=icon]:hidden">
