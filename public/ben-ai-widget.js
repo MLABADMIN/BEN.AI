@@ -6,7 +6,9 @@
   }
 
   const config = window.BEN_AI_WIDGET_CONFIG || {};
-  const chatUrl = config.chatUrl || "https://ben-ai-git-main-admin-22988206s-projects.vercel.app";
+  const chatUrl =
+    config.chatUrl ||
+    "https://ben-ai-git-main-admin-22988206s-projects.vercel.app";
   const title = config.title || "BEN.AI";
   const subtitle = config.subtitle || "The Adventure Starts Here";
   const avatarUrl = config.avatarUrl || "";
