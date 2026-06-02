@@ -108,7 +108,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       method: "DELETE",
     });
 
-    toast.success("All BEN.AI chats deleted");
+    toast.success("BEN.AI chat history cleared");
   };
 
   const openSettings = () => {
@@ -260,12 +260,12 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 {user && (
                   <SidebarMenuItem>
                     <SidebarMenuButton
-                      className="mt-2 rounded-lg text-sidebar-foreground/40 transition-colors duration-150 hover:bg-destructive/10 hover:text-destructive"
+                      className="mt-2 rounded-lg text-yellow-100/45 transition-colors duration-150 hover:bg-yellow-500/10 hover:text-yellow-100"
                       onClick={() => setShowDeleteAllDialog(true)}
-                      tooltip="Delete all BEN.AI chats"
+                      tooltip="Clear BEN.AI chat history"
                     >
                       <TrashIcon className="size-4" />
-                      <span className="text-[13px]">Delete all</span>
+                      <span className="text-[13px]">Clear history</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 )}
@@ -286,16 +286,17 @@ export function AppSidebar({ user }: { user: User | undefined }) {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete all BEN.AI chats?</AlertDialogTitle>
+            <AlertDialogTitle>Clear BEN.AI chat history?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete all
-              your BEN.AI chats and remove them from the server.
+              This clears the BEN.AI conversations saved to this workspace. It
+              will not change your MLAB account, early-access status, settings or
+              website data.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>Keep history</AlertDialogCancel>
             <AlertDialogAction onClick={handleDeleteAll}>
-              Delete all
+              Clear history
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
