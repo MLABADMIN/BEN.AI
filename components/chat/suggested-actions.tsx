@@ -14,10 +14,10 @@ type SuggestedActionsProps = {
 };
 
 const suggestedActions = [
-  "What can MLAB help me with today?",
-  "Tell me about Jamaican citizenship and passports",
-  "How does the Community Fund work?",
-  "Help me plan my move abroad",
+  "Give me the 60-second tour of MLAB",
+  "How can MLAB help with travel or moving abroad?",
+  "Explain Wealth Circles and community support",
+  "What is the BEN.AI roadmap?",
 ];
 
 function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
@@ -34,7 +34,7 @@ function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
       {suggestedActions.map((suggestedAction, index) => (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="min-w-[220px] shrink-0 sm:min-w-0 sm:shrink"
+          className="min-w-[240px] shrink-0 sm:min-w-0 sm:shrink"
           exit={{ opacity: 0, y: 16 }}
           initial={{ opacity: 0, y: 16 }}
           key={suggestedAction}
