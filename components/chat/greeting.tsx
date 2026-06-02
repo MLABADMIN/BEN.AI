@@ -13,7 +13,10 @@ const lineMotion = {
 
 export const Greeting = () => {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-center px-4 text-center" key="overview">
+    <div
+      className="mx-auto flex max-w-3xl flex-col items-center px-4 text-center"
+      key="overview"
+    >
       <motion.div
         animate={{ opacity: 1, y: 0, scale: 1 }}
         className="rounded-full border border-yellow-500/30 bg-black/30 px-4 py-1.5 font-medium text-[11px] text-yellow-100 uppercase tracking-[0.28em] shadow-[0_0_28px_rgba(234,179,8,0.12)]"
@@ -40,7 +43,9 @@ export const Greeting = () => {
         initial="hidden"
         variants={lineMotion}
       >
-        Built from real experiences. Designed for real life. I help visitors explore MLAB across travel, relocation, learning, business, wealth and community.
+        Built from real experiences. Designed for real life. I help visitors
+        explore MLAB across travel, relocation, learning, business, wealth and
+        community.
       </motion.p>
 
       <motion.div
@@ -50,20 +55,16 @@ export const Greeting = () => {
         initial="hidden"
         variants={lineMotion}
       >
-        {[
-          "Travel",
-          "Learning",
-          "Business",
-          "Wealth",
-          "Community",
-        ].map((item) => (
-          <span
-            className="rounded-full border border-yellow-500/25 bg-yellow-500/10 px-3 py-1"
-            key={item}
-          >
-            {item}
-          </span>
-        ))}
+        {["Travel", "Learning", "Business", "Wealth", "Community"].map(
+          (item) => (
+            <span
+              className="rounded-full border border-yellow-500/25 bg-yellow-500/10 px-3 py-1"
+              key={item}
+            >
+              {item}
+            </span>
+          )
+        )}
       </motion.div>
 
       <motion.p

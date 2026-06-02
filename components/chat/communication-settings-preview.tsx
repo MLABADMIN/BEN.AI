@@ -18,7 +18,8 @@ const responseModes = [
   {
     id: "deep",
     title: "Deep-dive mode",
-    description: "More context, examples and reasoning when the user asks for it.",
+    description:
+      "More context, examples and reasoning when the user asks for it.",
   },
 ];
 
@@ -36,7 +37,8 @@ const questionModes = [
   {
     id: "form",
     title: "Picker / form",
-    description: "Use tables, checklists or buttons when several choices are needed.",
+    description:
+      "Use tables, checklists or buttons when several choices are needed.",
   },
 ];
 
@@ -62,7 +64,9 @@ export function CommunicationSettingsPreview() {
           <p className="text-[10px] text-yellow-300/80 uppercase tracking-[0.28em]">
             Accessibility + ADHD support
           </p>
-          <h2 className="mt-1 font-semibold text-xl">BEN.AI communication style</h2>
+          <h2 className="mt-1 font-semibold text-xl">
+            BEN.AI communication style
+          </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-yellow-100/58">
             Let users choose how BEN.AI gives information: calmer, chunked,
             visual, and less question-heavy. These controls are a live settings
@@ -171,7 +175,10 @@ export function CommunicationSettingsPreview() {
               )}
               key={option}
               onClick={() =>
-                setEnabled((current) => ({ ...current, [option]: !current[option] }))
+                setEnabled((current) => ({
+                  ...current,
+                  [option]: !current[option],
+                }))
               }
               type="button"
             >
@@ -187,7 +194,9 @@ export function CommunicationSettingsPreview() {
       <div className="mt-4 rounded-2xl border border-yellow-500/15 bg-gradient-to-br from-yellow-500/12 to-black p-4">
         <h3 className="font-semibold text-yellow-50">Example behaviour</h3>
         <div className="mt-3 rounded-2xl border border-yellow-500/10 bg-black/45 p-3 text-sm leading-6 text-yellow-100/70">
-          <p className="font-medium text-yellow-50">User asks: Where should I go for good weather?</p>
+          <p className="font-medium text-yellow-50">
+            User asks: Where should I go for good weather?
+          </p>
           <p className="mt-2">
             BEN.AI should answer with a starter suggestion, then ask one simple
             choice such as: beach, city break, nature, or cheapest sunny option.
