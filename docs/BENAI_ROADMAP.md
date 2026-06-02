@@ -26,6 +26,7 @@ Create a premium BEN.AI experience that can answer questions from visitors, pote
 - Business directory and opportunity sharing
 - BEN.AI roadmap
 - Everyday life-admin support
+- The future My Life OS concept without overpromising it as already live
 
 ### First-visit experience
 
@@ -42,6 +43,14 @@ BEN.AI should feel present and premium, but not dominate the homepage. The homep
 - Not a mascot
 - Not a cartoon
 - Not just a logo
+
+### Sidebar / widget clarification
+
+The sidebar labels should not be treated as final fixed pages only. They are placeholders for a future configurable widget/module system.
+
+Users should eventually be able to choose which widgets they need, minimise them, move them, and keep them open while working. Life Admin is only one module. The wider product concept is My Life OS.
+
+See `docs/MYLIFE_OS_WIDGET_SPEC.md` for the protected product notes on notes, calendar, gift-voucher reminders and ADHD-friendly digital declutter.
 
 ### Phase 1 delivery checklist
 
@@ -75,10 +84,13 @@ Example journeys:
 - Ask about business support
 - Learn about Wealth Circles
 - Get life-admin help
+- Understand the future My Life OS workspace
 
 Phase 2 should include stronger content routing, structured intake questions and clearer handoff points to Human Ben or the MLAB team.
 
-## Phase 3: MLAB operating system
+Phase 2 should also begin modelling widgets/modules and user preferences, without trying to ship the full OS before the launch guide is stable.
+
+## Phase 3: My Life OS / MLAB operating system
 
 Phase 3 is the longer-term BEN.AI / MLAB OS vision.
 
@@ -86,6 +98,13 @@ Future capabilities may include:
 
 - Member dashboards
 - Editable workspaces
+- Configurable user widgets/modules
+- Moveable and minimisable Notes widget
+- Calendar support
+- Birthday and important-date reminders
+- Gift-voucher system integration
+- Gift suggestions inside calendar events or notes
+- Optional stale-item/digital-declutter reminders
 - Google Workspace integrations
 - Gmail, Calendar and Drive support
 - File uploads and document memory
