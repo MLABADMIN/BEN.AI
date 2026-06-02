@@ -25,6 +25,7 @@ import { DataStreamHandler } from "./data-stream-handler";
 import { submitEditedMessage } from "./message-editor";
 import { Messages } from "./messages";
 import { MultimodalInput } from "./multimodal-input";
+import { MyLifeOSPreview } from "./my-life-os-preview";
 
 export function ChatShell() {
   const {
@@ -69,6 +70,8 @@ export function ChatShell() {
     }
   }, [chatId, setArtifact]);
 
+  const shouldShowPreview = messages.length === 0 && !isArtifactVisible;
+
   return (
     <>
       <div className="flex h-dvh w-full flex-row overflow-hidden bg-[#030303] text-yellow-50">
@@ -87,6 +90,7 @@ export function ChatShell() {
           <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden border-yellow-500/20 bg-[radial-gradient(circle_at_15%_0%,rgba(234,179,8,0.14),transparent_32%),linear-gradient(180deg,#090909,#030303)] md:rounded-tl-[16px] md:border-t md:border-l">
             <div className="pointer-events-none absolute top-6 right-8 size-24 rounded-full border border-yellow-500/10 shadow-[0_0_70px_rgba(234,179,8,0.14)]" />
             <div className="pointer-events-none absolute right-16 bottom-28 h-px w-36 rotate-[-18deg] bg-gradient-to-r from-transparent via-yellow-500/25 to-transparent" />
+            {shouldShowPreview && <MyLifeOSPreview />}
             <Messages
               addToolApprovalResponse={addToolApprovalResponse}
               chatId={chatId}
@@ -177,27 +181,30 @@ export function ChatShell() {
         onOpenChange={setShowCreditCardAlert}
         open={showCreditCardAlert}
       >
-        <AlertDialogContent>
+        <AlertDialogContent className="border-yellow-500/25 bg-black text-yellow-50">
           <AlertDialogHeader>
-            <AlertDialogTitle>Activate AI Gateway</AlertDialogTitle>
-            <AlertDialogDescription>
-              This application requires{" "}
-              {process.env.NODE_ENV === "production" ? "the owner" : "you"} to
-              activate Vercel AI Gateway.
+            <AlertDialogTitle>Connect BEN.AI chat</AlertDialogTitle>
+            <AlertDialogDescription className="text-yellow-100/65">
+              BEN.AI can use Vercel AI Gateway or a direct provider key such as
+              OpenAI. The current deployment is asking for Gateway activation,
+              so chat needs the owner to connect billing/API access or switch the
+              route to a direct OpenAI key before visitors can use live replies.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="border-yellow-500/20 bg-black text-yellow-50 hover:bg-yellow-500/10">
+              Stay here
+            </AlertDialogCancel>
             <AlertDialogAction
+              className="bg-yellow-400 text-black hover:bg-yellow-300"
               onClick={() => {
                 window.open(
                   "https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dadd-credit-card",
                   "_blank"
                 );
-                window.location.href = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/`;
               }}
             >
-              Activate
+              Open Gateway setup
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
