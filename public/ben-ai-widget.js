@@ -6,7 +6,7 @@
   }
 
   const config = window.BEN_AI_WIDGET_CONFIG || {};
-  const chatUrl = config.chatUrl || "https://ben-ai-beta.vercel.app";
+  const chatUrl = config.chatUrl || "https://ben-ai-git-main-admin-22988206s-projects.vercel.app";
   const title = config.title || "BEN.AI";
   const subtitle = config.subtitle || "The Adventure Starts Here";
   const avatarUrl = config.avatarUrl || "";
@@ -19,8 +19,8 @@
   styles.textContent = `
     #ben-ai-widget-root {
       position: fixed;
-      right: 20px;
-      bottom: 20px;
+      right: 18px;
+      bottom: 18px;
       z-index: 2147483647;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -29,21 +29,25 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      min-width: 168px;
-      border: 1px solid rgba(234, 179, 8, 0.42);
+      min-width: 172px;
+      border: 1px solid rgba(250, 204, 21, 0.42);
       border-radius: 999px;
-      background: radial-gradient(circle at 20% 20%, rgba(234, 179, 8, 0.22), rgba(0, 0, 0, 0.94) 46%);
+      background: radial-gradient(circle at 18% 14%, rgba(250, 204, 21, 0.24), rgba(0, 0, 0, 0.96) 48%);
       color: #fff7d6;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 35px rgba(234, 179, 8, 0.18);
+      box-shadow: 0 18px 58px rgba(0, 0, 0, 0.42), 0 0 42px rgba(234, 179, 8, 0.20);
       cursor: pointer;
-      padding: 12px 16px 12px 12px;
+      padding: 11px 15px 11px 11px;
       transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
 
     .ben-ai-launcher:hover {
       transform: translateY(-2px);
-      border-color: rgba(250, 204, 21, 0.8);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.42), 0 0 46px rgba(234, 179, 8, 0.28);
+      border-color: rgba(250, 204, 21, 0.82);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), 0 0 58px rgba(234, 179, 8, 0.3);
+    }
+
+    .ben-ai-launcher.is-hidden {
+      display: none;
     }
 
     .ben-ai-orb {
@@ -76,29 +80,30 @@
     }
 
     .ben-ai-launcher-title {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .ben-ai-launcher-subtitle {
       margin-top: 3px;
-      color: rgba(255, 247, 214, 0.72);
+      color: rgba(255, 247, 214, 0.68);
       font-size: 11px;
     }
 
     .ben-ai-panel {
       position: fixed;
-      right: 20px;
-      bottom: 86px;
+      right: 18px;
+      bottom: 18px;
       display: none;
-      width: min(420px, calc(100vw - 28px));
-      height: min(680px, calc(100vh - 112px));
+      width: min(430px, calc(100vw - 28px));
+      height: min(700px, calc(100vh - 42px));
       overflow: hidden;
-      border: 1px solid rgba(234, 179, 8, 0.35);
-      border-radius: 24px;
-      background: #050505;
-      box-shadow: 0 26px 90px rgba(0, 0, 0, 0.48), 0 0 60px rgba(234, 179, 8, 0.16);
+      border: 1px solid rgba(250, 204, 21, 0.34);
+      border-radius: 28px;
+      background: #030303;
+      box-shadow: 0 28px 110px rgba(0, 0, 0, 0.58), 0 0 74px rgba(234, 179, 8, 0.18);
     }
 
     .ben-ai-panel.is-open {
@@ -109,32 +114,46 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(234, 179, 8, 0.18);
-      background: linear-gradient(135deg, rgba(234, 179, 8, 0.18), rgba(0, 0, 0, 0.96));
+      gap: 12px;
+      border-bottom: 1px solid rgba(250, 204, 21, 0.16);
+      background: radial-gradient(circle at 15% 0%, rgba(250, 204, 21, 0.2), transparent 32%), linear-gradient(135deg, rgba(10, 10, 10, 0.98), rgba(0, 0, 0, 0.96));
       color: #fff7d6;
       padding: 12px 14px;
+    }
+
+    .ben-ai-panel-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
     }
 
     .ben-ai-panel-heading {
       display: flex;
       flex-direction: column;
       line-height: 1.15;
+      min-width: 0;
     }
 
     .ben-ai-panel-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .ben-ai-panel-subtitle {
       margin-top: 3px;
       color: rgba(255, 247, 214, 0.68);
       font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .ben-ai-close {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border: 1px solid rgba(255, 247, 214, 0.18);
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.05);
@@ -142,25 +161,33 @@
       cursor: pointer;
     }
 
-    .ben-ai-frame {
-      width: 100%;
-      height: calc(100% - 55px);
-      border: 0;
-      background: #050505;
+    .ben-ai-close:hover {
+      background: rgba(250, 204, 21, 0.12);
     }
 
-    @media (max-width: 520px) {
+    .ben-ai-frame {
+      width: 100%;
+      height: calc(100% - 63px);
+      border: 0;
+      background: #030303;
+    }
+
+    @media (max-width: 560px) {
       #ben-ai-widget-root {
-        right: 14px;
-        bottom: 14px;
+        right: 10px;
+        bottom: 10px;
       }
 
       .ben-ai-panel {
-        right: 8px;
-        bottom: 78px;
-        width: calc(100vw - 16px);
-        height: calc(100vh - 92px);
-        border-radius: 20px;
+        right: 10px;
+        bottom: 10px;
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
+        border-radius: 22px;
+      }
+
+      .ben-ai-launcher-copy {
+        display: none;
       }
     }
   `;
@@ -171,18 +198,26 @@
 
   const header = document.createElement("div");
   header.className = "ben-ai-panel-header";
+
+  const orbMarkup = avatarUrl
+    ? `<span class="ben-ai-orb"><img class="ben-ai-avatar" src="${avatarUrl}" alt="${avatarAlt}" loading="lazy" decoding="async" /></span>`
+    : `<span class="ben-ai-orb">B</span>`;
+
   header.innerHTML = `
-    <div class="ben-ai-panel-heading">
-      <span class="ben-ai-panel-title">${title}</span>
-      <span class="ben-ai-panel-subtitle">Built from real experiences. Designed for real life.</span>
+    <div class="ben-ai-panel-brand">
+      ${orbMarkup}
+      <div class="ben-ai-panel-heading">
+        <span class="ben-ai-panel-title">${title}</span>
+        <span class="ben-ai-panel-subtitle">Built from real experiences. Designed for real life.</span>
+      </div>
     </div>
   `;
 
   const closeButton = document.createElement("button");
   closeButton.className = "ben-ai-close";
   closeButton.type = "button";
-  closeButton.setAttribute("aria-label", "Close BEN.AI");
-  closeButton.textContent = "x";
+  closeButton.setAttribute("aria-label", "Minimise BEN.AI");
+  closeButton.textContent = "-";
 
   const frame = document.createElement("iframe");
   frame.className = "ben-ai-frame";
@@ -195,11 +230,6 @@
   launcher.className = "ben-ai-launcher";
   launcher.type = "button";
   launcher.setAttribute("aria-label", "Open BEN.AI");
-
-  const orbMarkup = avatarUrl
-    ? `<span class="ben-ai-orb"><img class="ben-ai-avatar" src="${avatarUrl}" alt="${avatarAlt}" loading="lazy" decoding="async" /></span>`
-    : `<span class="ben-ai-orb">B</span>`;
-
   launcher.innerHTML = `
     ${orbMarkup}
     <span class="ben-ai-launcher-copy">
@@ -208,12 +238,13 @@
     </span>
   `;
 
-  const togglePanel = () => {
-    panel.classList.toggle("is-open");
+  const setOpen = (isOpen) => {
+    panel.classList.toggle("is-open", isOpen);
+    launcher.classList.toggle("is-hidden", isOpen);
   };
 
-  launcher.addEventListener("click", togglePanel);
-  closeButton.addEventListener("click", togglePanel);
+  launcher.addEventListener("click", () => setOpen(true));
+  closeButton.addEventListener("click", () => setOpen(false));
 
   header.appendChild(closeButton);
   panel.appendChild(header);
