@@ -165,11 +165,79 @@
       background: rgba(250, 204, 21, 0.12);
     }
 
-    .ben-ai-frame {
+    .ben-ai-frame-wrap {
+      position: relative;
       width: 100%;
       height: calc(100% - 63px);
+      background: #030303;
+    }
+
+    .ben-ai-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       border: 0;
       background: #030303;
+    }
+
+    .ben-ai-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: radial-gradient(circle at 50% 0%, rgba(250, 204, 21, 0.16), rgba(3, 3, 3, 0.98) 48%);
+      color: #fff7d6;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+
+    .ben-ai-fallback.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ben-ai-fallback-card {
+      max-width: 320px;
+      border: 1px solid rgba(250, 204, 21, 0.28);
+      border-radius: 22px;
+      background: rgba(0, 0, 0, 0.58);
+      padding: 18px;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.36);
+    }
+
+    .ben-ai-fallback-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .ben-ai-fallback-copy {
+      margin: 10px 0 0;
+      color: rgba(255, 247, 214, 0.72);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .ben-ai-fallback-link {
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 14px;
+      border: 1px solid rgba(250, 204, 21, 0.55);
+      border-radius: 999px;
+      background: rgba(250, 204, 21, 0.14);
+      color: #fff7d6;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     @media (max-width: 560px) {
@@ -219,12 +287,36 @@
   closeButton.setAttribute("aria-label", "Minimise BEN.AI");
   closeButton.textContent = "-";
 
+  const frameWrap = document.createElement("div");
+  frameWrap.className = "ben-ai-frame-wrap";
+
   const frame = document.createElement("iframe");
   frame.className = "ben-ai-frame";
   frame.title = "BEN.AI";
   frame.loading = "lazy";
   frame.referrerPolicy = "strict-origin-when-cross-origin";
   frame.src = chatUrl;
+
+  const fallback = document.createElement("div");
+  fallback.className = "ben-ai-fallback";
+  fallback.innerHTML = `
+    <div class="ben-ai-fallback-card">
+      <p class="ben-ai-fallback-title">Open BEN.AI</p>
+      <p class="ben-ai-fallback-copy">If the embedded preview stays blank, open BEN.AI directly in a new tab. This keeps the launch page safe while the full chat app loads.</p>
+      <a class="ben-ai-fallback-link" href="${chatUrl}" target="_blank" rel="noopener noreferrer">Open BEN.AI</a>
+    </div>
+  `;
+
+  let fallbackTimer;
+
+  const showFallbackSoon = (delay = 6000) => {
+    window.clearTimeout(fallbackTimer);
+    fallbackTimer = window.setTimeout(() => {
+      fallback.classList.add("is-visible");
+    }, delay);
+  };
+
+  frame.addEventListener("load", () => showFallbackSoon(4500));
 
   const launcher = document.createElement("button");
   launcher.className = "ben-ai-launcher";
@@ -241,14 +333,22 @@
   const setOpen = (isOpen) => {
     panel.classList.toggle("is-open", isOpen);
     launcher.classList.toggle("is-hidden", isOpen);
+    if (isOpen) {
+      showFallbackSoon();
+    } else {
+      window.clearTimeout(fallbackTimer);
+      fallback.classList.remove("is-visible");
+    }
   };
 
   launcher.addEventListener("click", () => setOpen(true));
   closeButton.addEventListener("click", () => setOpen(false));
 
   header.appendChild(closeButton);
+  frameWrap.appendChild(frame);
+  frameWrap.appendChild(fallback);
   panel.appendChild(header);
-  panel.appendChild(frame);
+  panel.appendChild(frameWrap);
   root.appendChild(panel);
   root.appendChild(launcher);
 
