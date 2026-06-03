@@ -33,6 +33,8 @@ export const BEN_AI_PERSONA = {
   tone: "calm, warm, premium, practical, one-step-at-a-time",
   restingState: "compass-circle",
   activeState: "concierge-control-panel",
+  personalityLock:
+    "Core BEN.AI personality stays locked. Tenant branding, knowledge, colours, welcome text, and mode emphasis can sit on top without replacing the core assistant behaviour.",
   visualBehaviour: [
     "appears on the page automatically",
     "enters like a premium assistant rather than a basic button",
@@ -42,6 +44,39 @@ export const BEN_AI_PERSONA = {
   ],
 } as const;
 
+export const ASSISTANT_MODES = [
+  {
+    id: "personal-assistant",
+    label: "Personal Assistant",
+    description:
+      "Life admin, planning, reminders, simple explanations, daily support, and practical next steps.",
+  },
+  {
+    id: "coach",
+    label: "Coach",
+    description:
+      "Confidence, accountability, learning, reflection, decision support, and one-question-at-a-time progress.",
+  },
+  {
+    id: "concierge",
+    label: "Concierge",
+    description:
+      "Premium guidance for travel, services, recommendations, bookings, preparation, and customer support.",
+  },
+  {
+    id: "research-runner",
+    label: "Research Runner",
+    description:
+      "Sent out to gather, compare, summarise, and bring back organised findings for the user or business.",
+  },
+  {
+    id: "site-guide",
+    label: "Embedded Site Guide",
+    description:
+      "A branded assistant embedded on a customer site, acting like a searchable guide, concierge, and FAQ layer.",
+  },
+] as const;
+
 export const ASSISTANT_PRODUCT_TIERS = [
   {
     id: "standard-personal-assistant",
@@ -49,6 +84,14 @@ export const ASSISTANT_PRODUCT_TIERS = [
     audience: "individuals",
     description:
       "A rentable BEN.AI-style personal assistant for life admin, planning, travel, learning, business, wealth, and community support.",
+    status: "planned",
+  },
+  {
+    id: "embedded-site-assistant",
+    name: "Embedded Site Assistant",
+    audience: "website owners and small businesses",
+    description:
+      "A BEN.AI-powered assistant that can be embedded on a customer's site like a living search, FAQ, concierge, and guide layer.",
     status: "planned",
   },
   {
@@ -80,10 +123,27 @@ export const ASSISTANT_PRODUCT_TIERS = [
     name: "White-label Assistant",
     audience: "partner brands",
     description:
-      "A configurable version of the assistant that can adopt a tenant's name, avatar, tone, knowledge base, and brand colours.",
+      "A configurable version of the assistant that can adopt a tenant's name, avatar, brand colours, knowledge base, and mode emphasis while the core BEN.AI personality remains locked underneath.",
     status: "planned",
   },
 ] as const;
+
+export const ASSISTANT_DEPLOYMENT_MODEL = {
+  core: "BEN.AI core personality, safety rules, one-step-at-a-time behaviour, and premium concierge style remain locked.",
+  tenantLayer:
+    "Customers can add business knowledge, preferred wording, colours, logo/avatar, welcome message, site links, and assistant mode emphasis.",
+  embedModel:
+    "A lightweight script or hosted widget lets the assistant appear on customer websites without giving customers access to the core code.",
+  workCycle:
+    "Assistant can be sent out to research or support a task, then return with organised findings; the customer's embedded assistant remains available on their site continuously.",
+  viableProducts: [
+    "rentable personal assistant",
+    "embedded site guide",
+    "business concierge",
+    "coach/course assistant",
+    "white-label assistant instance",
+  ],
+} as const;
 
 export const MLAB_PLATFORM_PHASES = [
   {
@@ -126,6 +186,7 @@ export const MLAB_PLATFORM_PHASES = [
       "pricing plans",
       "knowledge bases",
       "white-label configuration",
+      "embedded assistant script",
     ],
   },
 ] as const;
