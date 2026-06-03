@@ -9,6 +9,7 @@ import type {
 
 const OPENAI_CHAT_COMPLETIONS_URL = "https://api.openai.com/v1/chat/completions";
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
+const FALLBACK_MODEL_ID = "ben-ai-setup-mode";
 
 type OpenAIChatMessage = {
   role: "system" | "user" | "assistant";
@@ -69,6 +70,23 @@ function toUsage(usage?: OpenAIUsage): LanguageModelV3Usage {
           total_tokens: usage.total_tokens,
         }
       : undefined,
+  };
+}
+
+function fallbackUsage(text: string): LanguageModelV3Usage {
+  return {
+    inputTokens: {
+      total: undefined,
+      noCache: undefined,
+      cacheRead: undefined,
+      cacheWrite: undefined,
+    },
+    outputTokens: {
+      total: text.length,
+      text: text.length,
+      reasoning: undefined,
+    },
+    raw: { mode: FALLBACK_MODEL_ID },
   };
 }
 
@@ -148,6 +166,41 @@ function promptToOpenAIChatMessages(
     .filter((message) => message.content.trim().length > 0);
 }
 
+function latestUserMessage(prompt: LanguageModelV3CallOptions["prompt"]) {
+  const messages = promptToOpenAIChatMessages(prompt);
+  return [...messages].reverse().find((message) => message.role === "user")?.content ?? "";
+}
+
+function setupModeReply(prompt: LanguageModelV3CallOptions["prompt"]) {
+  const userText = latestUserMessage(prompt).toLowerCase();
+  const topic = userText.includes("travel")
+    ? "travel"
+    : userText.includes("business")
+      ? "business"
+      : userText.includes("learn") || userText.includes("course")
+        ? "learning"
+        : userText.includes("wealth") || userText.includes("money")
+          ? "wealth"
+          : userText.includes("community")
+            ? "community"
+            : "MLAB";
+
+  const nextStep =
+    topic === "travel"
+      ? "Tell me the destination or the kind of trip you are thinking about."
+      : topic === "business"
+        ? "Tell me the idea or task you want to turn into a plan."
+        : topic === "learning"
+          ? "Tell me the skill or subject you want to build."
+          : topic === "wealth"
+            ? "Tell me whether you want budgeting, saving, offers, rewards, or planning support."
+            : topic === "community"
+              ? "Tell me whether this is about support, events, citizenship, belonging, or the MLAB network."
+              : "Choose one lane: Travel, Learning, Business, Wealth, or Community.";
+
+  return `I am BEN.AI and I am online in setup mode.\n\nFull AI chat needs an active OpenAI key or Vercel AI Gateway credits. Until that is connected, I can still guide users calmly through the MLAB lanes and explain what to do next without showing a broken error.\n\nFor ${topic}, the next useful step is: ${nextStep}\n\nI will keep this simple: one step at a time.`;
+}
+
 function buildRequestBody(options: LanguageModelV3CallOptions, stream: boolean) {
   return {
     model: directOpenAIModelId(),
@@ -201,6 +254,63 @@ function sseLinesFromChunk(chunk: string) {
     .map((line) => line.slice(6));
 }
 
+export function createSetupModeModel(): LanguageModelV3 {
+  return {
+    specificationVersion: "v3",
+    provider: "ben-ai-setup",
+    modelId: FALLBACK_MODEL_ID,
+    supportedUrls: {},
+    async doGenerate(options) {
+      const text = setupModeReply(options.prompt);
+      const content: LanguageModelV3Content[] = [{ type: "text", text }];
+      return {
+        content,
+        finishReason: { unified: "stop", raw: "setup-mode" },
+        usage: fallbackUsage(text),
+        request: { body: { mode: FALLBACK_MODEL_ID } },
+        response: {
+          id: `setup-${Date.now()}`,
+          modelId: FALLBACK_MODEL_ID,
+          timestamp: new Date(),
+          headers: {},
+          body: { mode: FALLBACK_MODEL_ID },
+        },
+        warnings: [],
+      };
+    },
+    async doStream(options) {
+      const text = setupModeReply(options.prompt);
+      const textId = "ben-ai-setup-text";
+      const stream = new ReadableStream<LanguageModelV3StreamPart>({
+        start(controller) {
+          controller.enqueue({ type: "stream-start", warnings: [] });
+          controller.enqueue({
+            type: "response-metadata",
+            id: `setup-${Date.now()}`,
+            timestamp: new Date(),
+            modelId: FALLBACK_MODEL_ID,
+          });
+          controller.enqueue({ type: "text-start", id: textId });
+          controller.enqueue({ type: "text-delta", id: textId, delta: text });
+          controller.enqueue({ type: "text-end", id: textId });
+          controller.enqueue({
+            type: "finish",
+            usage: fallbackUsage(text),
+            finishReason: { unified: "stop", raw: "setup-mode" },
+          });
+          controller.close();
+        },
+      });
+
+      return {
+        stream,
+        request: { body: { mode: FALLBACK_MODEL_ID } },
+        response: { headers: {} },
+      };
+    },
+  };
+}
+
 export function createDirectOpenAIModel(): LanguageModelV3 {
   const modelId = directOpenAIModelId();
 
@@ -210,36 +320,47 @@ export function createDirectOpenAIModel(): LanguageModelV3 {
     modelId,
     supportedUrls: {},
     async doGenerate(options) {
-      const requestBody = buildRequestBody(options, false);
-      const response = await fetchOpenAI(requestBody, options.abortSignal);
-      const json = (await response.json()) as OpenAIChatCompletion;
-      const text = json.choices?.[0]?.message?.content ?? "";
-      const content: LanguageModelV3Content[] = [{ type: "text", text }];
+      try {
+        const requestBody = buildRequestBody(options, false);
+        const response = await fetchOpenAI(requestBody, options.abortSignal);
+        const json = (await response.json()) as OpenAIChatCompletion;
+        const text = json.choices?.[0]?.message?.content ?? "";
+        const content: LanguageModelV3Content[] = [{ type: "text", text }];
 
-      return {
-        content,
-        finishReason: normaliseFinishReason(json.choices?.[0]?.finish_reason),
-        usage: toUsage(json.usage),
-        request: { body: requestBody },
-        response: {
-          id: json.id,
-          modelId: json.model ?? modelId,
-          timestamp: new Date(),
-          headers: Object.fromEntries(response.headers.entries()),
-          body: json,
-        },
-        warnings: [],
-      };
+        return {
+          content,
+          finishReason: normaliseFinishReason(json.choices?.[0]?.finish_reason),
+          usage: toUsage(json.usage),
+          request: { body: requestBody },
+          response: {
+            id: json.id,
+            modelId: json.model ?? modelId,
+            timestamp: new Date(),
+            headers: Object.fromEntries(response.headers.entries()),
+            body: json,
+          },
+          warnings: [],
+        };
+      } catch (_) {
+        return createSetupModeModel().doGenerate(options);
+      }
     },
     async doStream(options) {
       const requestBody = buildRequestBody(options, true);
-      const response = await fetchOpenAI(requestBody, options.abortSignal);
+
+      let response: Response;
+      try {
+        response = await fetchOpenAI(requestBody, options.abortSignal);
+      } catch (_) {
+        return createSetupModeModel().doStream(options);
+      }
+
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
       const textId = "openai-text";
 
       if (!reader) {
-        throw new Error("OpenAI stream response did not include a body");
+        return createSetupModeModel().doStream(options);
       }
 
       let buffer = "";
@@ -305,9 +426,16 @@ export function createDirectOpenAIModel(): LanguageModelV3 {
               finishReason,
             });
             controller.close();
-          } catch (error) {
-            controller.enqueue({ type: "error", error });
-            controller.error(error);
+          } catch (_) {
+            const fallback = setupModeReply(options.prompt);
+            controller.enqueue({ type: "text-delta", id: textId, delta: fallback });
+            controller.enqueue({ type: "text-end", id: textId });
+            controller.enqueue({
+              type: "finish",
+              usage: fallbackUsage(fallback),
+              finishReason: { unified: "stop", raw: "setup-mode" },
+            });
+            controller.close();
           }
         },
       });
