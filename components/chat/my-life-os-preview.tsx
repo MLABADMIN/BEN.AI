@@ -11,6 +11,7 @@ import {
   TicketPercentIcon,
   XIcon,
 } from "lucide-react";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +26,9 @@ type PreviewWidget = {
   footer: string;
   icon: typeof NotebookPenIcon;
 };
+
+const feedbackFormUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdhOmURIFLTcZZEgVFc24MB2DsQr6yC0ZM8wBS0PHHajKq6UQ/viewform";
 
 const widgets: PreviewWidget[] = [
   {
@@ -106,8 +110,8 @@ export function MyLifeOSPreview() {
               My Life OS demo widgets
             </h2>
             <p className="mt-1 max-w-2xl text-[12px] leading-5 text-yellow-100/58 md:text-sm">
-              A clickable preview layer for the future workspace: minimise cards,
-              hide them, then restore them from the hidden tray.
+              A clickable preview layer inside BEN.AI: minimise cards, hide them,
+              then restore them from the hidden tray.
             </p>
           </div>
           <button
@@ -118,6 +122,24 @@ export function MyLifeOSPreview() {
             <RotateCcwIcon className="size-3.5" />
             Restore workspace
           </button>
+        </div>
+
+        <div className="border-yellow-500/10 border-b px-3 py-3 md:px-4">
+          <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/10 p-4 text-yellow-50">
+            <p className="font-semibold text-sm">Help shape what BEN.AI becomes</p>
+            <p className="mt-1 max-w-2xl text-[12px] leading-5 text-yellow-100/62 md:text-sm">
+              Test the chat, play with the My Life OS preview, then tell us what
+              would genuinely make life easier. No corporate survey waffle.
+            </p>
+            <Link
+              className="mt-3 inline-flex rounded-full bg-yellow-300 px-4 py-2 font-bold text-black text-xs transition hover:bg-yellow-200"
+              href={feedbackFormUrl}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Share feedback
+            </Link>
+          </div>
         </div>
 
         <div className="grid gap-3 p-3 md:grid-cols-2 md:p-4 xl:grid-cols-4">
