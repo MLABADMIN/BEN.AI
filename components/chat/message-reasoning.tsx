@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   Reasoning,
   ReasoningContent,
@@ -16,21 +15,25 @@ export function MessageReasoning({
   isLoading,
   reasoning,
 }: MessageReasoningProps) {
-  const [hasBeenStreaming, setHasBeenStreaming] = useState(isLoading);
-
-  useEffect(() => {
-    if (isLoading) {
-      setHasBeenStreaming(true);
-    }
-  }, [isLoading]);
-
   return (
     <Reasoning
       data-testid="message-reasoning"
-      defaultOpen={hasBeenStreaming}
+      defaultOpen={false}
       isStreaming={isLoading}
     >
-      <ReasoningTrigger />
+      <ReasoningTrigger
+        getThinkingMessage={(isStreaming, duration) => {
+          if (isStreaming) {
+            return <p>BEN.AI is working</p>;
+          }
+
+          if (duration === undefined || duration === 0) {
+            return <p>View reasoning details</p>;
+          }
+
+          return <p>View reasoning details — {duration}s</p>;
+        }}
+      />
       <ReasoningContent>{reasoning}</ReasoningContent>
     </Reasoning>
   );
