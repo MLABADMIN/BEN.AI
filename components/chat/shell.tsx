@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageCircleIcon, Minimize2Icon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   AlertDialog,
@@ -53,6 +54,7 @@ export function ChatShell() {
     null
   );
   const [attachments, setAttachments] = useState<Attachment[]>([]);
+  const [isComposerMinimised, setIsComposerMinimised] = useState(true);
   const isArtifactVisible = useArtifactSelector((state) => state.isVisible);
   const { setArtifact } = useArtifact();
 
@@ -67,10 +69,17 @@ export function ChatShell() {
       setArtifact(initialArtifactData);
       setEditingMessage(null);
       setAttachments([]);
+      setIsComposerMinimised(true);
     }
   }, [chatId, setArtifact]);
 
   const shouldShowPreview = messages.length === 0 && !isArtifactVisible;
+
+  useEffect(() => {
+    if (!shouldShowPreview) {
+      setIsComposerMinimised(false);
+    }
+  }, [shouldShowPreview]);
 
   return (
     <>
@@ -105,6 +114,7 @@ export function ChatShell() {
                   .join("");
                 setInput(text ?? "");
                 setEditingMessage(msg);
+                setIsComposerMinimised(false);
               }}
               regenerate={regenerate}
               selectedModelId={currentModelId}
@@ -113,45 +123,70 @@ export function ChatShell() {
               votes={votes}
             />
 
-            <div className="sticky bottom-0 z-1 mx-auto flex w-full max-w-4xl gap-2 border-t border-yellow-500/10 bg-gradient-to-t from-black via-black/95 to-transparent px-2 pt-5 pb-3 md:px-4 md:pb-4">
-              {!isReadonly && (
-                <MultimodalInput
-                  attachments={attachments}
-                  chatId={chatId}
-                  editingMessage={editingMessage}
-                  input={input}
-                  isLoading={isLoading}
-                  messages={messages}
-                  onCancelEdit={() => {
-                    setEditingMessage(null);
-                    setInput("");
-                  }}
-                  onModelChange={setCurrentModelId}
-                  selectedModelId={currentModelId}
-                  selectedVisibilityType={visibilityType}
-                  sendMessage={
-                    editingMessage
-                      ? async () => {
-                          const msg = editingMessage;
-                          setEditingMessage(null);
-                          await submitEditedMessage({
-                            message: msg,
-                            text: input,
-                            setMessages,
-                            regenerate,
-                          });
-                          setInput("");
-                        }
-                      : sendMessage
-                  }
-                  setAttachments={setAttachments}
-                  setInput={setInput}
-                  setMessages={setMessages}
-                  status={status}
-                  stop={stop}
-                />
-              )}
-            </div>
+            {!isReadonly && shouldShowPreview && isComposerMinimised ? (
+              <div className="pointer-events-none sticky bottom-0 z-10 flex w-full justify-center bg-gradient-to-t from-black via-black/80 to-transparent px-3 pt-8 pb-4">
+                <button
+                  className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-yellow-500/30 bg-black/90 px-4 py-2 font-semibold text-sm text-yellow-50 shadow-[0_18px_60px_rgba(0,0,0,0.45),0_0_38px_rgba(234,179,8,0.16)] transition hover:border-yellow-400/70 hover:bg-yellow-500/10"
+                  onClick={() => setIsComposerMinimised(false)}
+                  type="button"
+                >
+                  <MessageCircleIcon className="size-4 text-yellow-300" />
+                  Open BEN.AI chat
+                </button>
+              </div>
+            ) : (
+              <div className="sticky bottom-0 z-10 mx-auto flex w-full max-w-4xl flex-col gap-2 border-yellow-500/10 border-t bg-gradient-to-t from-black via-black/95 to-transparent px-2 pt-3 pb-3 md:px-4 md:pb-4">
+                {!isReadonly && shouldShowPreview && (
+                  <div className="flex justify-end">
+                    <button
+                      className="inline-flex items-center gap-2 rounded-full border border-yellow-500/20 bg-black/65 px-3 py-1.5 font-medium text-[11px] text-yellow-100/75 transition hover:border-yellow-400/55 hover:bg-yellow-500/10 hover:text-yellow-50"
+                      onClick={() => setIsComposerMinimised(true)}
+                      type="button"
+                    >
+                      <Minimize2Icon className="size-3.5" />
+                      Minimise chat
+                    </button>
+                  </div>
+                )}
+                {!isReadonly && (
+                  <MultimodalInput
+                    attachments={attachments}
+                    chatId={chatId}
+                    editingMessage={editingMessage}
+                    input={input}
+                    isLoading={isLoading}
+                    messages={messages}
+                    onCancelEdit={() => {
+                      setEditingMessage(null);
+                      setInput("");
+                    }}
+                    onModelChange={setCurrentModelId}
+                    selectedModelId={currentModelId}
+                    selectedVisibilityType={visibilityType}
+                    sendMessage={
+                      editingMessage
+                        ? async () => {
+                            const msg = editingMessage;
+                            setEditingMessage(null);
+                            await submitEditedMessage({
+                              message: msg,
+                              text: input,
+                              setMessages,
+                              regenerate,
+                            });
+                            setInput("");
+                          }
+                        : sendMessage
+                    }
+                    setAttachments={setAttachments}
+                    setInput={setInput}
+                    setMessages={setMessages}
+                    status={status}
+                    stop={stop}
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
 
