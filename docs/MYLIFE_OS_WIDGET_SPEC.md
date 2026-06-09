@@ -26,6 +26,39 @@ My Life OS is a flexible personal operating system for everyday life, especially
 
 It should help users hold thoughts, reminders, calendar items, gift ideas, notes, tasks and life-admin flows without needing to keep everything open in browser tabs or in their head.
 
+## First-time experience
+
+My Life OS should not open as a giant dashboard with every MLAB tool visible.
+
+The first-time experience should ask a few simple questions, then write the user into their own welcome page/workspace.
+
+The goal is to create a personal starting board, not an ecosystem dump.
+
+Example first-time questions:
+
+1. What brings you here today?
+2. What are you trying to sort out first?
+3. Do you want a simple page, a visual widget board, or a fuller dashboard?
+4. Are you here for travel, moving abroad, business, learning, life admin, community, money, or something else?
+5. Do you want BEN.AI to suggest widgets, or do you want to choose them yourself?
+
+The answers should decide which widgets appear first.
+
+Example: if a user answers travel, they should see a travel-centred workspace, not a dashboard full of business, wealth, community, courses and admin tools. Other tools can be suggested gently later, but not shown all at once.
+
+## Personalised welcome page
+
+After the first-time questions, the user's My Life OS should create a welcome page containing:
+
+- A calm welcome message based on their answers
+- A small number of relevant widgets
+- A next-step card
+- Optional suggested widgets
+- A clear way to add or remove widgets
+- A clear way to ask BEN.AI for help
+
+The first screen should be useful within seconds. If the user has to understand the whole ecosystem before taking action, the design has failed.
+
 ## Widget behaviour
 
 Widgets should eventually be:
@@ -34,12 +67,47 @@ Widgets should eventually be:
 - Moveable around the screen
 - Minimisable
 - Re-openable
+- Removable from the widget board
+- Able to be reinstated later from an Add Widgets area
 - Able to stay open while other work continues
 - Optional per user
 - Configurable in settings
 - Designed for ADHD-friendly use, without being patronising
 
-Important: the workspace should feel like a place to put things safely, not another overwhelming dashboard.
+Important: closing a widget should mean removing it from the active board, not merely minimising it into clutter. Users should be able to reinstate removed widgets when they want.
+
+The workspace should feel like a place to put things safely, not another overwhelming dashboard.
+
+## Widget recommendation logic
+
+My Life OS should recommend widgets based on the user's stated needs.
+
+Example routes:
+
+- Travel: trip planner, weather timing, transfer/excursion notes, saved places, travel checklist
+- Moving abroad: relocation checklist, documents, visa/citizenship notes, timeline, budget notes
+- Business: business idea board, launch checklist, content plan, customer intake, admin tasks
+- Learning: course path, reading list, progress tracker, questions for BEN.AI
+- Life admin: notes, reminders, forms, appointments, document parking
+- Community: events, groups, support circles, contact notes
+- Money: budget notes, savings plan, Pardner/wealth education, decision log
+
+Only the strongest matches should appear first. Other modules should sit in Suggestions or Add Widgets.
+
+## ADHD-friendly presentation
+
+My Life OS should reduce overwhelm by default.
+
+Design rules:
+
+- Start with fewer widgets, not more
+- Use one next step prominently
+- Use cards with clear headings
+- Avoid long walls of text
+- Let users choose compact, visual, table, or chunked modes later
+- Support removing widgets from view completely
+- Keep suggested next actions short and specific
+- Use progressive reveal instead of showing the full ecosystem at once
 
 ## Notes widget
 
@@ -49,7 +117,7 @@ Concept:
 
 - Similar in spirit to Apple Notes
 - Always reachable
-- Can be opened, minimised or moved
+- Can be opened, minimised, moved or removed from the active board
 - Lets users quickly write ideas, reminders, thoughts, lists and unfinished things
 - Should support BEN.AI helping organise notes later
 - Should not require the user to make every note perfect before saving it
@@ -98,11 +166,13 @@ Security angle:
 Users should be able to control:
 
 - Which widgets are visible
+- Which widgets are removed from the active board
 - Which widgets can remind them
 - How long before stale-item reminders appear
 - Whether digital declutter reminders are on or off
 - Whether gift suggestions appear in Calendar, Notes, both or neither
 - Whether BEN.AI can suggest organising old notes/tasks
+- Whether they prefer compact, visual, table, colour-coded, or chunked layouts
 
 ## Phase placement
 
@@ -111,11 +181,13 @@ Phase 1:
 - Preserve the concept in documentation.
 - Avoid hard-coding sidebar labels as final product architecture.
 - Keep BEN.AI launch guide simple.
-- Do not overbuild My Life OS yet.
+- Do not expose unfinished My Life OS widgets on the public front door.
+- If showing a prototype, it must be plain, polished, useful and clearly limited.
 
 Phase 2:
 
 - Start modelling widgets/modules and user preferences.
+- Add first-time questions and personalised welcome workspace.
 - Add clearer journeys for life admin and member support.
 
 Phase 3:
