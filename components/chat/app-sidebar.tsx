@@ -1,17 +1,9 @@
 "use client";
 
 import {
-  CalendarDaysIcon,
-  ChevronDownIcon,
   CompassIcon,
-  GiftIcon,
-  LayoutDashboardIcon,
-  NotebookPenIcon,
   PanelLeftIcon,
   PenSquareIcon,
-  SettingsIcon,
-  SparklesIcon,
-  TicketPercentIcon,
   TrashIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -52,45 +44,6 @@ import {
 } from "../ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-const previewWidgets = [
-  {
-    title: "My Life OS",
-    description:
-      "Early-access workspace preview: choose, move and minimise the life widgets you need.",
-    icon: LayoutDashboardIcon,
-  },
-  {
-    title: "Notes",
-    description:
-      "A safe place to park thoughts, lists and open loops without keeping a million tabs open.",
-    icon: NotebookPenIcon,
-  },
-  {
-    title: "Calendar",
-    description:
-      "Future calendar support for birthdays, reminders, travel dates and life-admin moments.",
-    icon: CalendarDaysIcon,
-  },
-  {
-    title: "Gift cards",
-    description:
-      "Planned gift-card and voucher links connected to important dates, rewards and reminders.",
-    icon: GiftIcon,
-  },
-  {
-    title: "Rewards wallet",
-    description:
-      "A future coupon-book style place for points, credits, affiliate perks, referrals and member treats.",
-    icon: TicketPercentIcon,
-  },
-  {
-    title: "Declutter nudge",
-    description:
-      "Optional future reminder to save, archive or clear stale open items. Never auto-deletes.",
-    icon: SparklesIcon,
-  },
-];
-
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
   const { setOpenMobile, toggleSidebar } = useSidebar();
@@ -109,17 +62,6 @@ export function AppSidebar({ user }: { user: User | undefined }) {
     });
 
     toast.success("BEN.AI chat history cleared");
-  };
-
-  const openSettings = () => {
-    setOpenMobile(false);
-    router.push("/settings");
-  };
-
-  const askAboutEarlyAccess = () => {
-    setOpenMobile(false);
-    router.push("/");
-    toast.message("Ask BEN.AI about My Life OS early access");
   };
 
   return (
@@ -160,7 +102,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
           <div className="mt-3 px-2 group-data-[collapsible=icon]:hidden">
             <p className="font-semibold text-sm text-yellow-50">BEN.AI / MLAB</p>
             <p className="mt-1 text-[11px] text-yellow-100/55">
-              Launch guide now. My Life OS early-access previews below.
+              Chat, history and working controls only.
             </p>
           </div>
         </SidebarHeader>
@@ -180,81 +122,6 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                     <PenSquareIcon className="size-4" />
                     <span className="font-medium">New BEN.AI chat</span>
                   </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem className="group-data-[collapsible=icon]:hidden">
-                  <details className="group mt-2 rounded-xl border border-yellow-500/20 bg-[#080808] p-2 open:bg-yellow-500/5">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-lg px-2 py-2 text-yellow-50 text-xs">
-                      <span className="flex min-w-0 flex-col">
-                        <span className="font-semibold">My Life OS preview</span>
-                        <span className="text-[11px] text-yellow-100/50">
-                          Demo modules for early access
-                        </span>
-                      </span>
-                      <ChevronDownIcon className="size-4 text-yellow-300/80 transition-transform group-open:rotate-180" />
-                    </summary>
-                    <div className="mt-2 space-y-2">
-                      {previewWidgets.map((item) => {
-                        const Icon = item.icon;
-
-                        return (
-                          <button
-                            className="w-full rounded-lg border border-yellow-500/10 bg-black/40 p-2 text-left transition-colors hover:border-yellow-500/30 hover:bg-yellow-500/10"
-                            key={item.title}
-                            onClick={askAboutEarlyAccess}
-                            type="button"
-                          >
-                            <span className="flex items-start gap-2">
-                              <Icon className="mt-0.5 size-4 shrink-0 text-yellow-400/85" />
-                              <span className="min-w-0">
-                                <span className="flex items-center gap-2 font-medium text-[12px] text-yellow-50">
-                                  {item.title}
-                                  <span className="rounded-full border border-yellow-500/20 px-1.5 py-0.5 text-[9px] text-yellow-200/75 uppercase tracking-[0.16em]">
-                                    Preview
-                                  </span>
-                                </span>
-                                <span className="mt-1 block text-[11px] leading-4 text-yellow-100/55">
-                                  {item.description}
-                                </span>
-                              </span>
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </details>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem className="group-data-[collapsible=icon]:hidden">
-                  <SidebarMenuButton
-                    className="mt-2 h-auto rounded-xl border border-yellow-500/20 bg-black/40 p-3 text-left text-yellow-50 transition-colors hover:border-yellow-500/35 hover:bg-yellow-500/10"
-                    onClick={openSettings}
-                    tooltip="Open settings"
-                  >
-                    <SettingsIcon className="size-4 text-yellow-400" />
-                    <span className="flex flex-col">
-                      <span className="font-semibold text-sm">Settings</span>
-                      <span className="text-[11px] leading-4 text-yellow-100/55">
-                        Control widgets, page mode, rewards and early-access features.
-                      </span>
-                    </span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem className="group-data-[collapsible=icon]:hidden">
-                  <Link
-                    className="mt-2 flex rounded-xl border border-yellow-500/25 bg-gradient-to-br from-yellow-500/15 to-black p-3 text-left transition-colors hover:border-yellow-400/60"
-                    href="https://www.mylifeasben.co.uk/join"
-                  >
-                    <span>
-                      <span className="block font-semibold text-sm text-yellow-50">
-                        Join early access
-                      </span>
-                      <span className="mt-1 block text-[11px] leading-4 text-yellow-100/60">
-                        Register interest for BEN.AI, MLAB membership and future My Life OS features.
-                      </span>
-                    </span>
-                  </Link>
                 </SidebarMenuItem>
 
                 {user && (
@@ -289,8 +156,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
             <AlertDialogTitle>Clear BEN.AI chat history?</AlertDialogTitle>
             <AlertDialogDescription>
               This clears the BEN.AI conversations saved to this workspace. It
-              will not change your MLAB account, early-access status, settings or
-              website data.
+              will not change your account or website data.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
